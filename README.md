@@ -15,3 +15,7 @@ where input can be:
 
 note: the "-h" input returns the alias I have on my .bashrc file so
 it's not really useful unless you set those variables yourself.
+
+## removeFree.sh 
+Literally removes free from the start of any file name. I use it for files 
+that have been downloaded from wuolah.
