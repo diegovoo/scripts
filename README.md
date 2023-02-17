@@ -5,7 +5,7 @@ Useful scripts that I use daily
 Counter that can be used for literally anything, I normally use it to
 count the amount of times my professor drinks water.
 ### Usage
-contador.sh <input> 
+contador.sh \<input\> 
 where input can be:
 + ++ -> adds 1 to the counter
 + -- -> substracts 1 from the counter
