@@ -27,11 +27,16 @@ value=0
 fi
 
     if [ $1 = "h" ] || [ $1 = "-h" ] || [ $1 = "--h" ]; then
-        echo "usage:"
-        echo "+ cont -> returns value; value is saved in tmp file; reset when pc shuts down"
-        echo "+ cont+ -> adds 1 to value"
-        echo "+ cont- -> takes away 1 from value"
-        echo "+ contreset -> sets value to 0"
+        echo "usage:
+
+    + cont -> returns value; value is saved in tmp file 
+              therefore it resets when pc shuts down
+
+    + cont+ -> adds 1 to value
+
+    + cont- -> takes away 1 from value
+
+    + contreset -> sets value to 0"
         exit 0
     fi
 fi

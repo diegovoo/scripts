@@ -20,9 +20,6 @@ if [ -z "$1" ] || [ "$1" = "-h" ] || [ "$1" = "--h" ] || [ "$1" = "h" ]
       Viernes | Friday)
 	echo -e "10 -> Proyecto de Instalación Informática"
 	;;
-	  Nager )
-	echo -e "ese es un parguela"
-	;;
       *)
 	echo -e "That's not a day of the week! \nDo ./horario.sh --h for help"
 	exit -1
