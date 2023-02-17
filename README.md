@@ -10,7 +10,7 @@ where input can be:
 + ++ -> adds 1 to the counter
 + -- -> substracts 1 from the counter
 + reset -> resets counter
-+ <NULL> | 'blank' -> to return value of counter
++ 'blank' -> to return value of counter
 + -h -> to get help or info on usage
 
 note: the "-h" input returns the alias I have on my .bashrc file so
