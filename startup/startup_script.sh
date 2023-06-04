@@ -1,0 +1,1 @@
+/usr/local/bin/startup_script.sh
