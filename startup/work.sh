@@ -20,3 +20,13 @@ RANDOM=$$$(date +%s)
 selectedwpp=${wallpapers[ $RANDOM % ${#wallpapers[@]} ]}
 
 gsettings set org.gnome.desktop.background picture-uri-dark file:///home/m1tus/Pictures/wpp/work/$selectedwpp
+
+# turn caffeine extension on
+
+# open discord
+nohup discdord > /tmp/nohup.out &
+
+# open todoist
+nohup /home/m1tus/snap/AppImageApps/Todoist-linux-x86_64-8.3.2_2d866837871622223ca739ccf2671473.AppImage --no-sandbox %U > /tmp/nohup.out &
+
+sleep 10

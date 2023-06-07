@@ -1,1 +1,2 @@
-#symbolic links
+### Startup script
+
