@@ -10,4 +10,4 @@ RANDOM=$$$(date +%s)
 
 selectedwpp=${wallpapers[ $RANDOM % ${#wallpapers[@]} ]}
 
-gsettings set org.gnome.desktop.background picture-uri-dark file:///home/m1tus/Pictures/Wallpapers/$selectedwpp
+#gsettings set org.gnome.desktop.background picture-uri-dark file:///home/m1tus/Pictures/Wallpapers/$selectedwpp

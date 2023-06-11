@@ -17,7 +17,7 @@ case $option in
         /home/m1tus/scripts/startup/personal.sh &
         ;;
     *)
-	gsettings set org.gnome.desktop.background picture-uri-dark 'file:///home/m1tus/Pictures/Wallpapers/megumi4k.jpg'
+	#gsettings set org.gnome.desktop.background picture-uri-dark 'file:///home/m1tus/Pictures/Wallpapers/megumi4k.jpg'
         ;;
 esac
 

@@ -22,7 +22,7 @@ RANDOM=$$$(date +%s)
 
 selectedwpp=${wallpapers[ $RANDOM % ${#wallpapers[@]} ]}
 
-gsettings set org.gnome.desktop.background picture-uri-dark file:///home/m1tus/Pictures/wpp/work/$selectedwpp
+# gsettings set org.gnome.desktop.background picture-uri-dark file:///home/m1tus/Pictures/wpp/work/$selectedwpp
 
 # turn caffeine extension on
 
