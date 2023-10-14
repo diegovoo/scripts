@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo openfortivpn vpnssl.upm.es --username=d.vigneron@alumnos.upm.es
+

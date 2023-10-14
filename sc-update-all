@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo "--- Updating apt packages ---"
+
+sudo apt update && sudo apt upgrade -y
+
+echo "--- done ---"
+echo "--- Updating snap packages ---"
+
+sudo snap refresh
+
+echo "--- done ---"
+echo "--- Updating flatpak packages ---"
+
+sudo flatpak update
+
+echo "--- done ---"
+
