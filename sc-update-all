@@ -1,18 +1,22 @@
 #!/bin/bash
 
-echo "--- Updating apt packages ---"
+# colors
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color, to reset text color
+
+echo -e "${GREEN}--- Updating apt packages ---${NC}"
 
 sudo apt update && sudo apt upgrade -y
 
-echo "--- done ---"
-echo "--- Updating snap packages ---"
+echo -e "${GREEN}--- done ---${NC}"
+echo -e "${GREEN}--- Updating snap packages ---${NC}"
 
 sudo snap refresh
 
-echo "--- done ---"
-echo "--- Updating flatpak packages ---"
+echo -e "${GREEN}--- done ---${NC}"
+echo -e "${GREEN}--- Updating flatpak packages ---${NC}"
 
 sudo flatpak update
 
-echo "--- done ---"
+echo -e "${GREEN}--- done ---${NC}"
 
