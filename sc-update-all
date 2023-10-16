@@ -4,19 +4,21 @@
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color, to reset text color
 
-echo -e "${GREEN}--- Updating apt packages ---${NC}"
+# Prompt for the password at the start
+sudo -v
 
-sudo apt update && sudo apt upgrade -y
+if [ $? -eq 0 ]; then
+    echo -e "${GREEN}--- Updating apt packages ---${NC}"
+    sudo apt update && sudo apt upgrade -y
+    echo -e "${GREEN}--- done ---${NC}"
 
-echo -e "${GREEN}--- done ---${NC}"
-echo -e "${GREEN}--- Updating snap packages ---${NC}"
+    echo -e "${GREEN}--- Updating snap packages ---${NC}"
+    sudo snap refresh
+    echo -e "${GREEN}--- done ---${NC}"
 
-sudo snap refresh
-
-echo -e "${GREEN}--- done ---${NC}"
-echo -e "${GREEN}--- Updating flatpak packages ---${NC}"
-
-sudo flatpak update
-
-echo -e "${GREEN}--- done ---${NC}"
-
+    echo -e "${GREEN}--- Updating flatpak packages ---${NC}"
+    sudo flatpak update
+    echo -e "${GREEN}--- done ---${NC}"
+else 
+    echo -e "${GREEN}Authentication failed"
+fi
