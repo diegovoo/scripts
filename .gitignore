@@ -1,2 +1,5 @@
 # vpn connection
-upmvpn.sh
+upmvpn
+
+# sshtriqui with vpn connection and triqui connection
+sshtriqui

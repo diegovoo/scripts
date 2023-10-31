@@ -9,7 +9,7 @@ sudo -v
 
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}--- Updating apt packages ---${NC}"
-    sudo apt update && sudo apt upgrade -y
+    sudo apt update && sudo apt upgrade
     echo -e "${GREEN}--- done ---${NC}"
 
     echo -e "${GREEN}--- Updating snap packages ---${NC}"
