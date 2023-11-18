@@ -9,7 +9,7 @@ sudo -v
 
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}--- Updating apt packages ---${NC}"
-    sudo apt update && sudo apt upgrade
+    sudo apt update && sudo apt dist-upgrade -y
     echo -e "${GREEN}--- done ---${NC}"
 
     echo -e "${GREEN}--- Updating snap packages ---${NC}"
@@ -19,6 +19,6 @@ if [ $? -eq 0 ]; then
     echo -e "${GREEN}--- Updating flatpak packages ---${NC}"
     sudo flatpak update
     echo -e "${GREEN}--- done ---${NC}"
-else 
+else
     echo -e "${GREEN}Authentication failed"
 fi
