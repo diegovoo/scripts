@@ -2,23 +2,48 @@
 
 # colors
 GREEN='\033[0;32m'
-NC='\033[0m' # No Color, to reset text color
+DEFAULT='\033[0m' # Reset text color
+
+# Function to check if a command exists
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
 
 # Prompt for the password at the start
 sudo -v
 
 if [ $? -eq 0 ]; then
-    echo -e "${GREEN}--- Updating apt packages ---${NC}"
-    sudo apt-get update && sudo apt-get dist-upgrade -y
-    echo -e "${GREEN}--- done ---${NC}"
+    echo -e "${GREEN}--- Updating apt packages ---${DEFAULT}"
+    if command_exists "apt-get"; then
+        sudo apt-get update && sudo apt-get dist-upgrade -y
+    else
+        echo "apt-get command not successful, please make sure your package manager is apt"
+    fi
+    echo -e "${GREEN}--- done ---${DEFAULT}"
 
-    echo -e "${GREEN}--- Updating snap packages ---${NC}"
-    sudo snap refresh
-    echo -e "${GREEN}--- done ---${NC}"
+    echo -e "${GREEN}--- Updating snap packages ---${DEFAULT}"
+    if command_exists "snap"; then
+        sudo snap refresh
+    else
+        echo "snap not found. Please install snap."
+    fi
+    echo -e "${GREEN}--- done ---${DEFAULT}"
 
-    echo -e "${GREEN}--- Updating flatpak packages ---${NC}"
-    sudo flatpak update
-    echo -e "${GREEN}--- done ---${NC}"
+    echo -e "${GREEN}--- Updating flatpak packages ---${DEFAULT}"
+    if command_exists "flatpak"; then
+        sudo flatpak update -y
+    else
+        echo "flatpak not found. Please install flatpak."
+    fi
+    echo -e "${GREEN}--- done ---${DEFAULT}"
+
+#    echo -e "${GREEN}--- Synchronizing onedrive ---${DEFAULT}"
+#    if command_exists "onedrive"; then
+#        onedrive --synchronize
+#    else
+#        echo "onedrive command not found. Please install onedrive."
+#    fi
+#    echo -e "${GREEN}--- done ---${DEFAULT}"
 else
-    echo -e "${GREEN}Authentication failed"
+    echo -e "${GREEN}Authentication failed${DEFAULT}"
 fi

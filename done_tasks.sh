@@ -3,23 +3,30 @@
 input_file="$HOME/OneDrive/vimwiki/index.md"
 output_file="$HOME/OneDrive/vimwiki/done_tasks.md"
 
-# Create the 'done_tasks.md' file if it doesn't exist
-touch "$output_file"
+exists_title() {
+    grep -n "$1" "$output_file" | cut -d: -f1
+}
 
-# Read tasks from the input file
-while IFS= read -r line || [[ -n "$line" ]]; do
-    # Check if the line contains a completed task (assumes tasks are marked with [x])
-    if [[ "$line" == *"[X]"* ]]; then
-        # Move the completed task to the 'done_tasks.md' file
-        echo "$line" >> "$output_file"
-        echo "Moved: $line"
+mv_title() {
+    local title_line_number
+    if title_line_number=$(exists_title "$1"); then
+        sed -i "${title_line_number}a $2" "$output_file"
     else
-        # Keep non-completed tasks in the original file
-        echo "$line" >> "$input_file.tmp"
+        echo "$1" >> "$output_file"
+        echo "$2" >> "$output_file"
     fi
+}
+
+while read -r LINE; do
+
+    if [[ "$LINE" == "#"* ]]; then
+        CURR_TITLE="$LINE"
+    fi
+
+	if [[ "$LINE" == *"[X]"* ]]; then
+        mv_title "$CURR_TITLE" "$LINE"
+	fi
+
 done < "$input_file"
 
-# Replace the original file with the temp file
-mv "$input_file.tmp" "$input_file"
-echo "done"
-
+sed -i '/[X]/d' $input_file
