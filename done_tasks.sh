@@ -19,12 +19,8 @@ mv_title() {
 
 while read -r LINE; do
 
-    if [[ "$LINE" == "#"* ]]; then
-        CURR_TITLE="$LINE"
-    fi
-
 	if [[ "$LINE" == *"[X]"* ]]; then
-        mv_title "$CURR_TITLE" "$LINE"
+		echo "$LINE" > "$output_file"
 	fi
 
 done < "$input_file"
