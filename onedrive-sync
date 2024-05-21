@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# syncs onedrive (used in crontab)
+echo "$(date '+%d-%m-%Y %H:%M:%S') zenbook: (m1tus) CMD(onedrive --synchronize)" >> /var/log/m1tus-scripts.log
+onedrive --synchronize 2>>/var/log/m1tus-scripts.log
+
