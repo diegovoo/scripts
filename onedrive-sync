@@ -1,22 +1,43 @@
 #!/bin/bash
 
+# ONEDRIVE auto sync for linux -> add to crontab
+# uses: https://github.com/abraunegg/onedrive
+
 LOGFILE="/home/m1tus/.log/onedrive-sync.log"
 LOGDIR=$(dirname $LOGFILE)
 
-# Check for .log dir
-if [ ! -d $LOGDIR ]; then
-    echo "Dir $LOGDIR does not exist"
+# syncs onedrive
+exec_sync() {
+    local TIMESTAMP=$(date '+%d-%m-%Y %H:%M:%S')
+
+    # outputs the time, host and user executing this script to the logfile
+    echo "$TIMESTAMP $(hostname): ($USER)" >> "$LOGFILE"
+    # syncs
+    SYNC_OUTPUT=$(onedrive --synchronize 2>&1)
+
+    # logs last line of the executed command
+    LAST_LINE=$(echo "$SYNC_OUTPUT" | tail -n 1)
+    echo "$LAST_LINE" >> "$LOGFILE"
+}
+
+# Checks for .log dir
+if [ ! -d "$LOGDIR" ]; then
+    echo "Directory $LOGDIR does not exist"
     exit 1
 fi
 
-# Try to create LOGFILE
-touch $LOGFILE
+# Attempts to create LOGFILE
+touch "$LOGFILE"
 
 if [ $? -ne 0 ]; then
     echo "Log file could not be created. Check permissions"
     exit 1
 fi
 
-# syncs onedrive (used in crontab)
-echo "$(date '+%d-%m-%Y %H:%M:%S') zenbook: (m1tus) CMD(onedrive --synchronize)" >> $LOGFILE
-onedrive --synchronize 2>> $LOGFILE
+# Sync
+exec_sync
+if [ $? -ne 0 ]; then
+	echo "Sync failed: retrying once"
+	exec_sync
+fi
+
