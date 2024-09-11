@@ -20,30 +20,9 @@ if [ $? -eq 0 ]; then
         echo "apt-get command not successful, please make sure your package manager is apt"
     fi
     echo -e "${GREEN}--- done ---${DEFAULT}"
-
-    echo -e "${GREEN}--- Updating snap packages ---${DEFAULT}"
-    if command_exists "snap"; then
-        sudo snap refresh
-    else
-        echo "snap not found. Please install snap."
-    fi
+    echo -e "${GREEN}--- Removing unused dependencies ---${DEFAULT}"
+        sudo apt-get autoremove -y
     echo -e "${GREEN}--- done ---${DEFAULT}"
-
-    echo -e "${GREEN}--- Updating flatpak packages ---${DEFAULT}"
-    if command_exists "flatpak"; then
-        sudo flatpak update -y
-    else
-        echo "flatpak not found. Please install flatpak."
-    fi
-    echo -e "${GREEN}--- done ---${DEFAULT}"
-
-#    echo -e "${GREEN}--- Synchronizing onedrive ---${DEFAULT}"
-#    if command_exists "onedrive"; then
-#        onedrive --synchronize
-#    else
-#        echo "onedrive command not found. Please install onedrive."
-#    fi
-#    echo -e "${GREEN}--- done ---${DEFAULT}"
 else
     echo -e "${GREEN}Authentication failed${DEFAULT}"
 fi
