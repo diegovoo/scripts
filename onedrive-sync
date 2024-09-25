@@ -13,8 +13,8 @@ exec_sync() {
     # outputs the time, host and user executing this script to the logfile
     echo "$TIMESTAMP $(hostname)" >> "$LOGFILE"
     # syncs
-    #SYNC_OUTPUT=$(onedrive --synchronize 2>&1)
-    onedrive --synchronize
+    #SYNC_OUTPUT=$(onedrive --sync 2>&1)
+    onedrive --sync
 
     # logs last line of the executed command
     #LAST_LINE=$(echo "$SYNC_OUTPUT" | tail -n 1)
