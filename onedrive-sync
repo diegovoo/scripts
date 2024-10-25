@@ -6,19 +6,17 @@
 LOGFILE="/home/m1tus/.log/onedrive-sync.log"
 LOGDIR=$(dirname $LOGFILE)
 
+ONEDRIVE_ARGS="--sync"
+if [ $# -gt 0 ]; then
+    ONEDRIVE_ARGS="$@"
+fi
+
 # syncs onedrive
 exec_sync() {
     local TIMESTAMP=$(date '+%d-%m-%Y %H:%M:%S')
-
     # outputs the time, host and user executing this script to the logfile
     echo "$TIMESTAMP $(hostname)" >> "$LOGFILE"
-    # syncs
-    #SYNC_OUTPUT=$(onedrive --sync 2>&1)
-    onedrive --sync
-
-    # logs last line of the executed command
-    #LAST_LINE=$(echo "$SYNC_OUTPUT" | tail -n 1)
-    #echo "$LAST_LINE" >> "$LOGFILE"
+    onedrive "$ONEDRIVE_ARGS"
 }
 
 # Checks for .log dir
