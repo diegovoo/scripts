@@ -32,7 +32,7 @@ if [ -f "$last_status_file" ]; then
     last_status=$(cat "$last_status_file")
 else
     touch "$last_status_file"
-    last_status=0
+    last_status=100
 fi
 
 if [ "$battery_percent" -le 40 ] && [ "$last_status" -gt 40 ]; then
@@ -45,6 +45,7 @@ elif [ "$battery_percent" -le 20 ] && [ "$last_status" -gt 20 ]; then
 elif [ "$battery_percent" -eq 80 ] && [ "$last_status" -lt 80 ]; then
     last_status=80
     notify_user "[Battery at 80%]" "Disconnect from power"
+    rm "$last_status_file"
 fi
 
 echo "$last_status" > "$last_status_file"
