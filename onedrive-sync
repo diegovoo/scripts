@@ -12,11 +12,32 @@ if [ $# -gt 0 ]; then
 fi
 
 # syncs onedrive
-exec_sync() {
+function exec_sync() {
     local TIMESTAMP=$(date '+%d-%m-%Y %H:%M:%S')
     # outputs the time, host and user executing this script to the logfile
     echo "$TIMESTAMP $(hostname)" >> "$LOGFILE"
-    onedrive "$ONEDRIVE_ARGS"
+    if [ -t 1 ]; then
+        onedrive "$ONEDRIVE_ARGS"
+    else
+        onedrive "$ONEDRIVE_ARGS" 2>&1 >/dev/null
+    fi
+}
+
+function notify_user() {
+    local message="$1"
+    local body="$2"
+
+    # Specify the user explicitly
+    local user="m1tus"
+
+    # Get the user's UID
+    local uid=$(id -u $user)
+
+    # Construct the DBUS_SESSION_BUS_ADDRESS
+    local dbus_address="unix:path=/run/user/$uid/bus"
+
+    # Send the notification
+    sudo -u $user DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=$dbus_address notify-send "$message" "$body"
 }
 
 # Checks for .log dir
@@ -35,8 +56,8 @@ fi
 
 # Sync
 exec_sync
+
 if [ $? -ne 0 ]; then
-	echo "Sync failed: retrying once"
-	exec_sync
+    notify_user "OneDrive Update Failed" "KO"
 fi
 

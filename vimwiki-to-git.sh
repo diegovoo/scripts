@@ -1,8 +1,18 @@
 #!/bin/bash
 
-cd ~/OneDrive/vimwiki/
-git add .
-git commit -m "UPDATE: $(date +%Y-%m-%d)"
-git push origin main 
+CURR_TIME="$(date '+%d-%m-%Y %H:%M:%S')"
+LOG_STRING="$CURR_TIME $(hostname): $(whoami) CMD($(basename "$0"))"
 
-echo "$(date '+%d-%m-%Y %H:%M:%S') zenbook: (m1tus) CMD(vimwiki-to-git.sh)" >> ~/.log/vimwiki-to-git.log
+cd ~/OneDrive/vimwiki/
+
+git add .
+
+if git diff --cached --quiet; then
+    echo "No changes to commit. Exiting."
+    exit 0
+fi
+
+git commit -m "$LOG_STRING"
+git push origin main
+
+echo "$LOG_STRING" >> ~/.log/vimwiki-to-git.log
