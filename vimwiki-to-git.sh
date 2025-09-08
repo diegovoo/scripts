@@ -33,6 +33,11 @@ if git diff --cached --quiet; then
 fi
 
 git commit -m "$LOG_STRING"
-git push origin main
+if ! git push origin main; then
+    MESSAGE="[KO] Push to git failed on $(hostname) at: $(date)"
+    curl -s -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
+         -d chat_id="$CHAT_ID" \
+         -d text="$MESSAGE"
+fi
 
 echo "$LOG_STRING" >> ~/.log/vimwiki-to-git.log
