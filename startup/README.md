@@ -1,4 +1,0 @@
-### Startup script
-todo:
-[ ]  
-
