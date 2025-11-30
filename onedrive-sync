@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# ONEDRIVE auto sync for linux -> add to crontab
 # onedrive for linux: https://github.com/abraunegg/onedrive
+
+set -a
+source ~/.telegram_env
+set +a
 
 LOGFILE="/home/m1tus/.log/onedrive-sync.log"
 LOGDIR=$(dirname $LOGFILE)
@@ -11,7 +14,6 @@ if [ $# -gt 0 ]; then
     ONEDRIVE_ARGS="$@"
 fi
 
-# syncs onedrive
 function exec_sync() {
     local TIMESTAMP=$(date '+%d-%m-%Y %H:%M:%S')
 
@@ -34,9 +36,11 @@ function notify_user() {
     sudo -u $user DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=$dbus_address notify-send "$message" "$body"
 }
 
-# Checks for .log dir
+# ------------------------------------------------------------------------- #
+
 if [ ! -d "$LOGDIR" ]; then
     echo "Directory $LOGDIR does not exist"
+    notify_user "OneDrive Update Failed" "Directory $LOGDIR does not exist"
     exit 1
 fi
 
@@ -44,10 +48,10 @@ touch "$LOGFILE"
 
 if [ $? -ne 0 ]; then
     echo "Log file could not be created. Check permissions"
+    notify_user "OneDrive Update Failed" "Log file could not be created"
     exit 1
 fi
 
-# Sync
 exec_sync
 
 if [ $? -ne 0 ]; then

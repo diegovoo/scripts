@@ -1,28 +1,17 @@
 #!/bin/bash
 
-# colors
 GREEN='\033[0;32m'
-DEFAULT='\033[0m' # Reset text color
+DEFAULT='\033[0m'
 
-# Function to check if a command exists
-command_exists() {
-  command -v "$1" >/dev/null 2>&1
-}
-
-# Prompt for the password at the start
 sudo -v
 
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}--- Updating apt packages ---${DEFAULT}"
-    if command_exists "apt"; then
-        sudo apt update && sudo apt dist-upgrade -y
-    else
-        echo "apt command not successful, please make sure your package manager is apt"
-    fi
+        sudo apt update && sudo apt full-upgrade -y
     echo -e "${GREEN}--- done ---${DEFAULT}"
     echo -e "${GREEN}--- Removing unused dependencies ---${DEFAULT}"
         sudo apt autoremove -y
     echo -e "${GREEN}--- done ---${DEFAULT}"
 else
-    echo -e "${GREEN}Authentication failed${DEFAULT}"
+    echo -e "${GREEN}Auth failed${DEFAULT}"
 fi

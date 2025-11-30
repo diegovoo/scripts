@@ -15,4 +15,3 @@ else
          -d chat_id="$CHAT_ID" \
          -d text="$MESSAGE"
 fi
-
