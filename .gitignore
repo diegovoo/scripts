@@ -1,1 +1,3 @@
 *.bak
+env.py
+__pycache__/
