@@ -31,7 +31,7 @@ while true; do
     log "Starting monitoring loop..."
     
     journalctl --user-unit=onedrive -f --since=now --no-pager | \
-    grep -E "(Main process exited, code=exited, status=|ERROR: You will need to issue a --reauth)" --line-buffered | \
+    grep -E "(Main process exited, code=exited, status=|ERROR: You will need to issue a --reauth|Conflict)" --line-buffered | \
     while IFS= read -r line; do
         if [[ "$line" == *"Main process exited, code=exited, status="* ]]; then
             log "Detected OneDrive service exit"
@@ -41,6 +41,11 @@ while true; do
         elif [[ "$line" == *"ERROR: You will need to issue a --reauth"* ]]; then
             log "Detected OneDrive reauth error"
             send_telegram "[KO] OneDrive REAUTH ERROR - $(hostname) at: $(date) [caught with systemd monitor]"
+            exit 0
+
+        elif [[ "$line" == *"Conflict"* ]]; then
+            log "Conflict with file error"
+            send_telegram "[KO] OneDrive conflict ERROR - $(hostname) at: $(date) [caught with systemd monitor]"
             exit 0
         fi
     done
